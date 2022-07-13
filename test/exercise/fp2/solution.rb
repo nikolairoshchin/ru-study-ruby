@@ -3,9 +3,16 @@ module Exercise
     class MyArray < Array
       # Использовать стандартные функции массива для решения задач нельзя.
       # Использовать свои написанные функции для реализации следующих - можно.
-
+  
       # Написать свою функцию my_each
-      def my_each; end
+      def my_each(&block)
+	index = 0
+	while index < self.length
+	  block.call(self[index])
+	index += 1
+	end
+	self
+      end
 
       # Написать свою функцию my_map
       def my_map; end
