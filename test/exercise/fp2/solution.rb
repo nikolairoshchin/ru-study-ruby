@@ -15,10 +15,17 @@ module Exercise
       end
 
       # Написать свою функцию my_map
-      def my_map; end
+      def my_map (&block)
+	result = MyArray.new
+	my_each do |el|
+	  result << block.call(el)
+	end
+	result
+      end
 
       # Написать свою функцию my_compact
-      def my_compact; end
+      def my_compact
+      end
 
       # Написать свою функцию my_reduce
       def my_reduce; end
