@@ -7,11 +7,11 @@ module Exercise
       end
 
       def maximum(array)
-        my_maxi = array[0]
-        array.each do |arr|
-          my_maxi = arr if arr > my_maxi
+        maxi = array[0]
+        array.each do |item|
+          maxi = item if item > maxi
         end
-        my_maxi
+        maxi
       end
 
       def search(_array, _query)
