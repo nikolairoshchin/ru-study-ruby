@@ -14,26 +14,17 @@ module Exercise
         maxi
       end
 
-      def search(_array, _query)
-        high = _array.length - 1
-        low = 0
-        recur_search(_array, _query, low, high)
+      def search(_array, _query, low = 0, high = _array.length - 1)
+	return -1 if low > high
+        mid = (low + high) / 2
+	return mid if _array[mid] == _query
+          if _array[mid] < _query
+	     search(_array, _query, mid + 1, high)
+          else _array[mid] > _query
+	     search(_array, _query, low, mid - 1)
+          end
       end
 
-      def recur_search(_array, _query, low, high)
-        if low <= high
-          mid = (low + high) / 2
-          if _array[mid] < _query
-            recur_search(_array, _query, mid + 1, high)
-          elsif _array[mid] > _query
-            recur_search(_array, _query, low, mid - 1)
-          else
-            mid
-          end
-        else
-          -1
-        end
-      end
     end
   end
 end
