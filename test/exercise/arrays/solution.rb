@@ -3,11 +3,7 @@ module Exercise
     class << self
       def replace(array)
         my_max = maximum(array)
-        new_array = []
-        array.each do |arr|
-          new_array << (arr.positive? ? my_max : arr)
-        end
-        new_array
+	array.map { |item| item.positive? ? my_max : item  }
       end
 
       def maximum(array)
