@@ -17,11 +17,12 @@ module Exercise
       end
 
       def chars_count(films, threshold)
-        arr = films.map do |film|
-          film['rating_kinopoisk'].to_f >= threshold ? film['name'] : 'o'
-        end.map(&:chars).flatten
-        arr.reduce(0) do |memo, letter|
-          memo += letter == 'и' ? 1 : 0
+	arr = []
+	films.map do |film|
+	  arr << film['name'] if film['rating_kinopoisk'].to_f >= threshold
+	end
+        arr.reduce(0) do |memo, film|
+          memo += film.count 'и'
         end
       end
     end
