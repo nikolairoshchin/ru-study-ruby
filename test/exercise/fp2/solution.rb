@@ -6,12 +6,14 @@ module Exercise
 
       # Написать свою функцию my_each
       def my_each(&block)
-        index = 0
-        while index < length
-          block.call(self[index])
-          index += 1
-        end
-        self
+	each_recur(0, &block)
+	self
+      end
+
+      def each_recur(index, &block)
+	return block.call(self[index]) if index == length - 1
+	block.call(self[index])
+	each_recur(index += 1, &block)
       end
 
       # Написать свою функцию my_map
@@ -36,12 +38,15 @@ module Exercise
       def my_reduce(acc = nil, &block)
         index = acc.nil? ? 1 : 0
         acc ||= self[0]
-        while index < length
-          acc = block.call(acc, self[index])
-          index += 1
-        end
-        acc
+	acc = reduce_recur(acc, index, &block) 
       end
+
+      def reduce_recur(acc, index, &block)
+	return acc if index == length
+	acc = block.call(acc, self[index])
+	reduce_recur(acc, index += 1, &block)
+      end
+
     end
   end
 end
