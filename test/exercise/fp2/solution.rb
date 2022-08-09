@@ -5,15 +5,12 @@ module Exercise
       # Использовать свои написанные функции для реализации следующих - можно.
 
       # Написать свою функцию my_each
-      def my_each(&block)
-	each_recur(0, &block)
+      def my_each(array = self, &block)
+	head, *rest = array
+	return block.call(head) if rest.empty?
+	block.call(head)
+	my_each(rest, &block)
 	self
-      end
-
-      def each_recur(index, &block)
-	return block.call(self[index]) if index == length - 1
-	block.call(self[index])
-	each_recur(index += 1, &block)
       end
 
       # Написать свою функцию my_map
@@ -35,17 +32,16 @@ module Exercise
       end
 
       # Написать свою функцию my_reduce
-      def my_reduce(acc = nil, &block)
-        index = acc.nil? ? 1 : 0
-        acc ||= self[0]
-	acc = reduce_recur(acc, index, &block) 
-      end
-
-      def reduce_recur(acc, index, &block)
-	return acc if index == length
-	acc = block.call(acc, self[index])
-	reduce_recur(acc, index += 1, &block)
-      end
+      def my_reduce(acc = nil, array = self, &block)
+	head, *rest = array
+	if acc.nil?
+	  acc = head
+	  head, *rest = rest
+	end
+	return block.call(acc, head) if rest.empty?
+	acc = block.call(acc, head)
+	acc = my_reduce(acc, rest, &block)
+     end
 
     end
   end
